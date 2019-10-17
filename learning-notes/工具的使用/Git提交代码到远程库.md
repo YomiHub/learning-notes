@@ -102,6 +102,7 @@ $ git commit    //跳过git add自动暂存所有已跟踪的文件
     
 
 - 添加远程仓库
+  
   - ` git remote add <shortname> <url>`  为添加的远程库url添加可引用的简写shortname
 
 
@@ -113,7 +114,11 @@ $ git commit    //跳过git add自动暂存所有已跟踪的文件
   $ git pull origin  master
   ```
 
-  
+  注：当你希望将本地创建的Git仓库（没有clone)合并到远程仓库时，需要合并两个独立启动的仓库
+
+  `$git pull origin master --allow-unrelated-histories`
+
+
 
 - 推送到远程仓库（推送完可登陆到远程库查看）
 
@@ -121,6 +126,8 @@ $ git commit    //跳过git add自动暂存所有已跟踪的文件
   $ git push [remote-name] [branch-name]`     //推送到远程库remote-name的branch-name分支
   $ git push origin master`   //克隆时通常会自动帮你设置好这两个名字，可以直接使用
   ```
+
+  
 
   
 
