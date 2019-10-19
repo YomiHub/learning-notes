@@ -48,8 +48,6 @@ $ git config --global user.email email@example.com
 
   
 
-
-
 - 第二种在现有目录中初始化仓库
   - 进入项目文件夹，右击选择" Git Bash Here" 或者直接在上述打开的 git-bash.exe 中 cd 到项目目录
   - 初始化仓库：` $ git init`    （移除初始化的本地仓库： ` find . -name ".git" | xargs rm -Rf`)

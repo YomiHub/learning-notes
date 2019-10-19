@@ -1,4 +1,4 @@
-### HTML5新标签
+### HTML5新知识
 
 
 
@@ -42,8 +42,6 @@
 }());
 </script>
 ```
-
-
 
 
 
@@ -529,7 +527,40 @@ window.addEvenListener('message',function(ev){
   - IE在跨域请求下使用的对象：XDomainRequest（）
   -  新的事件：onload（代替onreadystatechange）
 
-var getXmlHttpRequest = function () {     try{         //主流浏览器提供了XMLHttpRequest对象         return new XMLHttpRequest();     }catch(e){         //低版本的IE浏览器没有提供XMLHttpRequest对象，IE6以下         //所以必须使用IE浏览器的特定实现ActiveXObject         return new ActiveXObject("Microsoft.XMLHTTP");     } };  var xhr = getXmlHttpRequest();     // readyState 0=>初始化 1=>载入 2=>载入完成 3=>解析 4=>完成     // console.log(xhr.readyState);  0 xhr.open("TYPE", "URL", true); //xhr.open("post","url","是否异步上传"); //设置为post请求的时必须要设置 xhr.setRequestHeader('X-Request-With','XMLHttpRequest'); // console.log(xhr.readyState);  1  xhr.send(); //post提交时设置提交数据 // console.log(xhr.readyState);  1  xhr.onreadystatechange = function () {     // console.log(xhr.status); //HTTP状态吗     // console.log(xhr.readyState);  2 3 4     if(xhr.readyState === 4 && xhr.status === 200){        alert(xhr.responseText);     } }; 
+```js
+var getXmlHttpRequest = function () {
+    try{
+        //主流浏览器提供了XMLHttpRequest对象
+        return new XMLHttpRequest();
+    }catch(e){
+        //低版本的IE浏览器没有提供XMLHttpRequest对象，IE6以下
+        //所以必须使用IE浏览器的特定实现ActiveXObject
+        return new ActiveXObject("Microsoft.XMLHTTP");
+    }
+};
+
+var xhr = getXmlHttpRequest();
+    // readyState 0=>初始化 1=>载入 2=>载入完成 3=>解析 4=>完成
+    // console.log(xhr.readyState);  0
+xhr.open("TYPE", "URL", true);
+//xhr.open("post","url","是否异步上传");
+//设置为post请求的时必须要设置 xhr.setRequestHeader('X-Request-With','XMLHttpRequest');
+// console.log(xhr.readyState);  1
+
+xhr.send();
+//post提交时设置提交数据
+// console.log(xhr.readyState);  1
+
+xhr.onreadystatechange = function () {
+    // console.log(xhr.status); //HTTP状态吗
+    // console.log(xhr.readyState);  2 3 4
+    if(xhr.readyState === 4 && xhr.status === 200){
+       alert(xhr.responseText);
+    }
+};
+```
+
+
 
 
 
@@ -545,49 +576,49 @@ var getXmlHttpRequest = function () {     try{         //主流浏览器提供�
 
   - onprogress:下载
 
+```js
 <body>
-    <input type="file" id="test-file"/>
-    <input type="submit" value="选择的文件列表" id="btn"/>
+    <input type="file" id="test-file"/>
+    <input type="submit" value="选择的文件列表" id="btn"/>
 
-    <script>
-        var testFile = document.getElementById('test-file');
-        var btn = document.getElementById('btn');
+    <script>
+        var testFile = document.getElementById('test-file');
+        var btn = document.getElementById('btn');
 
-        //通过ajax要发送的信息是testFile.files[0]   //具体的文件对象
-        btn.onclick = function(){
-            console.log(testFile.files)   //返回控件testfile中选择的文件[object list]
-            var xhr = new XMLHttpRequest();
+        //通过ajax要发送的信息是testFile.files[0]   //具体的文件对象
+        btn.onclick = function(){
+            console.log(testFile.files)   //返回控件testfile中选择的文件[object list]
+            var xhr = new XMLHttpRequest();
 
-            var oUpload = xhr.upload;   //要将onprogress放在上传事件之前
-            oUpload.onprogress = function(ev){
-                var iScale = ev.loaded/ev.total;
-                btn.value = iScale*100;
-                console.log(iScale*100)
-                //进度条总长*iScale = 当前进度  iScale*100 
-            }
+            var oUpload = xhr.upload;   //要将onprogress放在上传事件之前
+            oUpload.onprogress = function(ev){
+                var iScale = ev.loaded/ev.total;
+                btn.value = iScale*100;
+                console.log(iScale*100)
+                //进度条总长*iScale = 当前进度  iScale*100 
+            }
 
-            xhr.open('post','post_file.php',true);
-            xhr.setRequestHeader('X-Request-with','XMLHttpRequest');
-            //发送的文件
-            var formData = new FormData();   //文件对象要用formData发送
+            xhr.open('post','post_file.php',true);
+            xhr.setRequestHeader('X-Request-with','XMLHttpRequest');
+            //发送的文件
+            var formData = new FormData();   //文件对象要用formData发送
 
-            for(var attr in testFile.files){
-                console.log(testFile.files[attr])   //文件对象：name、size、type等
-                formData.append('file',testFile.files[attr]);   //key value  (key对应后台请求的数据参数)
-            }
+            for(var attr in testFile.files){
+                console.log(testFile.files[attr])   //文件对象：name、size、type等
+                formData.append('file',testFile.files[attr]);   //key value  (key对应后台请求的数据参数)
+            }
 
-            xhr.send(formData);
-            xhr.onload = function(){
-                if(xhr.readyState=='4'&&xhr.status=='200'){
-                    var backData = JSON.parse(this.responseText);
-                    console.log(backData);
-                }
-            } 
-        }
-    </script>
+            xhr.send(formData);
+            xhr.onload = function(){
+                if(xhr.readyState=='4'&&xhr.status=='200'){
+                    var backData = JSON.parse(this.responseText);
+                    console.log(backData);
+                }
+            } 
+        }
+    </script>
 </body>
-
-
+```
 
 
 
@@ -613,19 +644,45 @@ var getXmlHttpRequest = function () {     try{         //主流浏览器提供�
 - - 单次定位请求  ：getCurrentPosition(请求成功，请求失败，数据收集方式)
   - 请求成功函数
 
-var timer = navigator.getolocation.getCurrentPosition(function(position){     console.log(position.coords.longitude);   //打印出经度 },function(err){     console.log(ree.code)  //请求失败的编号 },{     enableHighAcuracy:true,  //更精确的查找     timeout:5000   //单位四毫秒 });  经度 :  coords.longitude 纬度 :  coords.latitude 准确度 :  coords.accuracy //下面四个必须是支持GPS定位的设备才可以获取到 海拔 :  coords.altitude 海拔准确度 :  coords.altitudeAcuracy 行进方向 :  coords.heading 地面速度 :  coords.speed 时间戳 : new Date(position.timestamp) 
+```js
+var timer = navigator.getolocation.getCurrentPosition(function(position){
+    console.log(position.coords.longitude);   //打印出经度
+},function(err){
+    console.log(ree.code)  //请求失败的编号
+},{
+    enableHighAcuracy:true,  //更精确的查找
+    timeout:5000   //单位四毫秒
+});
+
+经度 :  coords.longitude
+纬度 :  coords.latitude
+准确度 :  coords.accuracy
+//下面四个必须是支持GPS定位的设备才可以获取到
+海拔 :  coords.altitude
+海拔准确度 :  coords.altitudeAcuracy
+行进方向 :  coords.heading
+地面速度 :  coords.speed
+时间戳 : new Date(position.timestamp)
+```
 
 
 
 - 请求失败函数
-
-失败编号  ：code 0  :  不包括其他错误编号中的错误 1  :  用户拒绝浏览器获取位置信息 2  :  尝试获取用户信息，但失败了 3  :   设置了timeout值，获取位置超时了 
+  - 失败编号  ：
+    - code 0  :  不包括其他错误编号中的错误 
+    - code 1  :  用户拒绝浏览器获取位置信息
+    - code 2  :  尝试获取用户信息，但失败了 
+    - code 3  :   设置了timeout值，获取位置超时了 
 
 
 
 - 数据收集 :  json的形式
 
-enableHighAcuracy  :  更精确的查找，默认false timeout  :  获取位置允许最长时间，默认infinity maximumAge :  位置可以缓存的最大时间，默认0 
+```
+enableHighAcuracy  :  更精确的查找，默认false
+timeout  :  获取位置允许最长时间，默认infinity
+maximumAge :  位置可以缓存的最大时间，默认0
+```
 
 
 
@@ -638,19 +695,19 @@ enableHighAcuracy  :  更精确的查找，默认false timeout  :  获取位置�
 
 - 关闭更新请求  :  clearWatch(像clearInterval)
 
-navigator.geolocation.clearWatch(timer) 
+`navigator.geolocation.clearWatch(timer) `
 
 
 
-百度地图API
+> 百度地图API
 
-- <script src="http://api.map.baidu.com/api?v=1.3"></script>
+- ` <script src="http://api.map.baidu.com/api?v=1.3"></script>`
 
 
 
 **本地存储**
 
-Cookie
+> Cookie
 
 - 数据存储到计算机中，通过浏览器控制添加与删除数据
 
@@ -666,7 +723,7 @@ Cookie
 
 
 
-Storage
+> Storage
 
 - sessionStorage
 
@@ -679,7 +736,7 @@ Storage
 
 
 
-Storage的特点
+> Storage的特点
 
 - 存储量限制 ( 5M )
 - 客户端完成，不会请求服务器处理
@@ -687,7 +744,7 @@ Storage的特点
 
 
 
-Storage API
+> Storage API
 
 - setItem():
 
@@ -706,11 +763,16 @@ Storage API
 
 - - 删除全部存储的值
 
-window.sessionStorage.setItem('name','yomi'); window,sessionStorage.getItem('name'); window,sessionStorage.removeItem('name'); window,sessionStorage.clear(); 
+```js
+window.sessionStorage.setItem('name','yomi'); 
+window,sessionStorage.getItem('name'); 
+window,sessionStorage.removeItem('name');
+window,sessionStorage.clear(); 
+```
 
 
 
-存储事件:
+> 存储事件:
 
 - 当数据有修改或删除的情况下，就会触发storage事件
 
@@ -722,24 +784,29 @@ window.sessionStorage.setItem('name','yomi'); window,sessionStorage.getItem('nam
   - url :  触发该脚本变化的文档的url
   - 注：session同窗口才可以,例子：iframe操作
 
-window.addEventListener('storage',function(ev){     //对当前页面window进行修改，不会触发当前窗口的该事件，只会在共享页面触发     if(ev.key == '存储的key值'){         if(ev.newValue = aInput[0].value){             aInput[0].checked = true;    //多页面数据同步更新         }     } },false); 
-
-
-
-
+```js
+window.addEventListener('storage',function(ev){
+    //对当前页面window进行修改，不会触发当前窗口的该事件，只会在共享页面触发
+    if(ev.key == '存储的key值'){
+        if(ev.newValue = aInput[0].value){
+            aInput[0].checked = true;    //多页面数据同步更新
+        }
+    }
+},false);
+```
 
 
 
 **HTML5音频与视频**
 
-标签
+> 标签
 
 - audio、video
 - source
 
 
 
-视频容器
+> 视频容器
 
 - 音频轨道
 - 视频轨道
@@ -748,7 +815,7 @@ window.addEventListener('storage',function(ev){     //对当前页面window进�
 
 
 
-编解码器 （浏览器内嵌）
+> 编解码器 （浏览器内嵌）
 
 - 原始的视频容器非常大，添加需编码，播放需解码
 
@@ -788,15 +855,17 @@ setInterval(function(){     console.log(ele.currentTime)  //可以通过该属�
 
 
 
-媒体元素其它事件
+> 媒体元素其它事件
 
 - loadstart progress suspend emptied stalled play pause loadedmetadata loadeddata waiting playing canplay canplaythrough seeking seeked timeupdate ended ratechange durationchange volumechange
 
+```js
 ele.addEventListener('ended',function(){     //视频播完之后触发 },false); 
+```
 
 
 
-video额外特性
+> video额外特性
 
 - poster  :   视频播放前的预览图片  ele.poster = 'poster.png'
 - width、height  :   设置视频的尺寸
@@ -804,24 +873,172 @@ video额外特性
 
 
 
-//带声音的导航 window.onload = function(){ 	var aLi = document.getElementsByTagName('li'); 	var oA = document.getElementById('a1');  //audio不添加contrls是不可见的 	 	for(var i=0;i<aLi.length;i++){         aLi[i].onmouseover = function(){             //this.getAttribute('au');   //用au自定义不同属性以播放不同的音乐             oA.src = 'http://s8.qhimg.com/share/audio/piano1/'+this.getAttribute('au')+'4.mp3';             oA.play();         }; 	} }; 
+```js
+//带声音的导航
+window.onload = function(){
+	var aLi = document.getElementsByTagName('li');
+	var oA = document.getElementById('a1');  //audio不添加contrls是不可见的
+	
+	for(var i=0;i<aLi.length;i++){
+        aLi[i].onmouseover = function(){
+            //this.getAttribute('au');   //用au自定义不同属性以播放不同的音乐
+            oA.src = 'http://s8.qhimg.com/share/audio/piano1/'+this.getAttribute('au')+'4.mp3';
+            oA.play();
+        };
+	}
+};
+```
 
 
 
-//结合视频与canvas var oV = document.getElementById('v1'); var oC = document.getElementById('c1'); var oGC = oC.getContext('2d');  oC.width = oV.videoWidth; oC.height = oV.videoHeight;  setInterval(function(){ oGC.drawImage( oV , 0 , 0 );   //让canvas内容和视频保持一致 },30); 
+```js
+//结合视频与canvas
+var oV = document.getElementById('v1');
+var oC = document.getElementById('c1');
+var oGC = oC.getContext('2d');
 
+oC.width = oV.videoWidth;
+oC.height = oV.videoHeight;
 
-
-
+setInterval(function(){
+oGC.drawImage( oV , 0 , 0 );   //让canvas内容和视频保持一致
+},30);
+```
 
 
 
 **自制播放器**
 
-window.onload = function(){     var oV = document.getElementById('v1');     var aInput = document.getElementsByTagName('input');     var timer = null;          //播放暂停键     aInput[0].onclick = function(){         if( oV.paused ){             oV.play();             this.value = '暂停';             nowTime();             timer = setInterval(nowTime,1000);         }         else{             oV.pause();             this.value = '播放';             clearInterval(timer);         }     };          //静音与否     aInput[2].value = changeTime(oV.duration);     aInput[3].onclick = function(){              if( oV.muted ){             oV.volume = 1;             this.value = '静音';                       oV.muted = false;                    }         else{                        oV.volume = 0;                       this.value = '取消静音';                         oV.muted = true;                     }            };          //点击全屏     aInput[4].onclick = function(){         oV.mozRequestFullScreen();   //firefox         oV.webkitRequestFullScreen();   //chrome     };          //设置当前播放的时长     function nowTime(){         aInput[1].value = changeTime(oV.currentTime);         //播放时根据时间长设置拖拽条的位置         var scale = oV.currentTime/oV.duration;           oDiv2.style.left = scale * (oDiv1.offsetWidth - oDiv2.offsetWidth)+ 'px';     }          //将毫秒数换成  hh:mm:ss     function changeTime(iNum){         iNum = parseInt( iNum );         var iH = toZero(Math.floor(iNum/3600));         var iM = toZero(Math.floor(iNum%3600/60));         var iS = toZero(Math.floor(iNum%60));         return iH + ':' +iM + ':' + iS;     }      //设置个位数时补0     function toZero(num){         if(num<=9){             return '0' + num;         }         else{             return '' + num;         }     } }; 
+```js
+window.onload = function(){
+    var oV = document.getElementById('v1');
+    var aInput = document.getElementsByTagName('input');
+    var timer = null;
+    
+    //播放暂停键
+    aInput[0].onclick = function(){
+        if( oV.paused ){
+            oV.play();
+            this.value = '暂停';
+            nowTime();
+            timer = setInterval(nowTime,1000);
+        }
+        else{
+            oV.pause();
+            this.value = '播放';
+            clearInterval(timer);
+        }
+    };
+    
+    //静音与否
+    aInput[2].value = changeTime(oV.duration);
+    aInput[3].onclick = function(){     
+        if( oV.muted ){
+            oV.volume = 1;
+            this.value = '静音';          
+            oV.muted = false;           
+        }
+        else{           
+            oV.volume = 0;          
+            this.value = '取消静音';            
+            oV.muted = true;            
+        }       
+    };
+    
+    //点击全屏
+    aInput[4].onclick = function(){
+        oV.mozRequestFullScreen();   //firefox
+        oV.webkitRequestFullScreen();   //chrome
+    };
+    
+    //设置当前播放的时长
+    function nowTime(){
+        aInput[1].value = changeTime(oV.currentTime);
+        //播放时根据时间长设置拖拽条的位置
+        var scale = oV.currentTime/oV.duration;  
+        oDiv2.style.left = scale * (oDiv1.offsetWidth - oDiv2.offsetWidth)+ 'px';
+    }
+    
+    //将毫秒数换成  hh:mm:ss
+    function changeTime(iNum){
+        iNum = parseInt( iNum );
+        var iH = toZero(Math.floor(iNum/3600));
+        var iM = toZero(Math.floor(iNum%3600/60));
+        var iS = toZero(Math.floor(iNum%60));
+        return iH + ':' +iM + ':' + iS;
+    }
+
+    //设置个位数时补0
+    function toZero(num){
+        if(num<=9){
+            return '0' + num;
+        }
+        else{
+            return '' + num;
+        }
+    }
+};
+```
 
 
 
 //添加拖拽进度条
 
-//视频进度条拖拽     oDiv2.onmousedown = function(ev){         var ev = ev || window.event;         disX = ev.clientX - oDiv2.offsetLeft;  //拖拽条此时的left                  document.onmousemove = function(ev){             var ev = ev || window.event;             var L = ev.clientX - disX;              if(L<0){                 L = 0;             }             else if(L>oDiv1.offsetWidth - oDiv2.offsetWidth){                 L = oDiv1.offsetWidth - oDiv2.offsetWidth;  //靠最右边             }                          oDiv2.style.left = L + 'px';              var scale = L/(oDiv1.offsetWidth - oDiv2.offsetWidth);              oV.currentTime = scale * oV.duration;   //改变当前播放时间             nowTime();   //改变当前播放时间的显示效果                      };         document.onmouseup = function(){             document.onmousemove = null;         };         return false;     };          //音频进度条拖拽     oDiv4.onmousedown = function(ev){         var ev = ev || window.event;         disX2 = ev.clientX - oDiv4.offsetLeft;                  document.onmousemove = function(ev){             var ev = ev || window.event;                          var L = ev.clientX - disX2;                          if(L<0){                 L = 0;             }             else if(L>oDiv3.offsetWidth - oDiv4.offsetWidth){                 L = oDiv3.offsetWidth - oDiv4.offsetWidth;             }                          oDiv4.style.left = L + 'px';             var scale = L/(oDiv3.offsetWidth - oDiv4.offsetWidth);             oV.volume = scale;    //根据拖拽条比例设置音量                      };         document.onmouseup = function(){             document.onmousemove = null;         };         return false;     }; 
+```js
+ oDiv2.onmousedown = function(ev){
+        var ev = ev || window.event;
+        disX = ev.clientX - oDiv2.offsetLeft;  //拖拽条此时的left
+        
+        document.onmousemove = function(ev){
+            var ev = ev || window.event;
+            var L = ev.clientX - disX;
+
+            if(L<0){
+                L = 0;
+            }
+            else if(L>oDiv1.offsetWidth - oDiv2.offsetWidth){
+                L = oDiv1.offsetWidth - oDiv2.offsetWidth;  //靠最右边
+            }
+            
+            oDiv2.style.left = L + 'px';
+
+            var scale = L/(oDiv1.offsetWidth - oDiv2.offsetWidth); 
+            oV.currentTime = scale * oV.duration;   //改变当前播放时间
+            nowTime();   //改变当前播放时间的显示效果
+            
+        };
+        document.onmouseup = function(){
+            document.onmousemove = null;
+        };
+        return false;
+    };
+    
+    //音频进度条拖拽
+    oDiv4.onmousedown = function(ev){
+        var ev = ev || window.event;
+        disX2 = ev.clientX - oDiv4.offsetLeft;
+        
+        document.onmousemove = function(ev){
+            var ev = ev || window.event;
+            
+            var L = ev.clientX - disX2;
+            
+            if(L<0){
+                L = 0;
+            }
+            else if(L>oDiv3.offsetWidth - oDiv4.offsetWidth){
+                L = oDiv3.offsetWidth - oDiv4.offsetWidth;
+            }
+            
+            oDiv4.style.left = L + 'px';
+            var scale = L/(oDiv3.offsetWidth - oDiv4.offsetWidth);
+            oV.volume = scale;    //根据拖拽条比例设置音量
+            
+        };
+        document.onmouseup = function(){
+            document.onmousemove = null;
+        };
+        return false;
+    };
+```
+
