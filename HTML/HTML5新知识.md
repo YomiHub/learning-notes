@@ -1,7 +1,5 @@
 ### HTML5新知识
 
-
-
 **字符设定**
 
 ```html
@@ -16,24 +14,58 @@
 - header：定义了文档的头部区域
 
 - nav：定义导航链接的部分
+
 - footer：定义 section 或 document（文档） 的页脚
+
 - article：定义页面独立的内容区域（比如论坛的帖子）
+
 - section：定义文档中的节（section、区段）划分区域，没有特别含义
+
 - aside：定义页面的侧边栏内容
+
 - datalist：标签(id 属性)结合input （list属性）实现option列表关键字关联和列表选择
-- fieldset 元素可将表单内的相关元素分组，和legend一起搭配使用<filedset><legend>嵌在框内的标题<legend><filedset>
+
+  ```
+  <input id="myCar" list="cars" />
+  <datalist id="cars">
+    <option value="BMW">
+    <option value="Ford">
+    <option value="Volvo">
+  </datalist>
+  ```
+
+- fieldset 元素可将表单内的相关元素分组，和legend一起搭配使用（给表单周围加边框）
+
+```
+<form>
+  <fieldset>
+    <legend>health information</legend>
+    height: <input type="text" />
+    weight: <input type="text" />
+  </fieldset>
+</form>
+```
+
 - details：标签内嵌入summary标签（放缩略信息）使用，用于切换详情展示与否
+
+```
+<details>
+    <summary>Copyright 2011.</summary>
+    <p>details</p>
+</details>
+```
+
 - dialog：定义一段对话，里面放dt、dd标签（open属性设置是否默认展开）
-- adress（文章或作者信息）、mark（标记）、keygen（添加公钥）、progress（进度条）
+- address（文章或作者信息）、mark（标记）、keygen（添加公钥）、progress（进度条）
 
 
 
-兼容性写法（添加js然后将元素设置为块状元素dispaly:block ）：
+> 兼容性写法（添加js然后将元素设置为块状元素dispaly:block ）：
 
 ```html
 <script type="text/javascript">
 (function(){
- vare="abbr,article,aside,audio,canvas,datalist,details,figure,
+ var e="abbr,article,aside,audio,canvas,datalist,details,figure,
  footer,header,hgroup,mark,menu,meter,nav,output,progress,section,time,video".split(','),
    i=e.length;
    while(i--){
@@ -122,7 +154,7 @@ oText.oninput = function(){   //使用自定义验证
 
 
 
-**多媒体**
+#### 多媒体
 
 **多媒体embed（标签定义嵌入的内容）**
 
@@ -166,8 +198,6 @@ oText.oninput = function(){   //使用自定义验证
 </video>
 ```
 
-
-
 - audio的附加属性：autoplay 自动播放、controls 规定浏览器应该为音频提供播放控件、loop循环播放、width 播放窗口的宽度、height 播放窗口的高度
 - 注： IE 8 或更早版本的 IE 浏览器不支持 <vedeo> 标签
 
@@ -179,7 +209,7 @@ oText.oninput = function(){   //使用自定义验证
 
 
 
-**选择器**
+#### 选择器
 
 > 新的选择器
 
@@ -195,8 +225,8 @@ oText.oninput = function(){   //使用自定义验证
 
 - classList
 
-- - length :  class的长度
-  - add()  :  添加class方法
+  - length :  class的长度
+  - add()  :  添加class方法  `document.getElementById("div1").classList.add("mystyle");`
   - remove()  :  删除class方法
   - toggle() :  切换class方法 
 
@@ -223,13 +253,11 @@ JSON.stringify(["上海","北京"])
 > 新方法与eval的区别
 
 - eval：可以解析任何字符串编程JS（不推荐使用）
-- parse:只能解析JSON形式的字符串变成JS（安全性更高）
+- parse : 只能解析JSON形式的字符串变成JS（安全性更高）
 
 ```js
 //eval()使用
-
  var str = 'function test(){alert("sth")}' eval(str);   //将字符串转成JS
-
  test();   //调用函数 
 ```
 
@@ -239,15 +267,13 @@ JSON.stringify(["上海","北京"])
 
 - 深度克隆新对象（对象直接赋值会存在对象引用的问题）
 
-- - 解决方法一： var(for attr in obj) {//这里进行属性赋值}    —— 浅拷贝，对于属性也是对象则不成立
+  - 解决方法一： for(var attr in obj) {//这里进行属性赋值}    —— 浅拷贝，对于属性也是对象则不成立
 
 ```javascript
 //新方法 
 
 var a = {     name : 'hello' };  
-
 var str = JSON.stringfy(a); 
-
 var b = JSON.parse(str); 
 ```
 
@@ -264,10 +290,8 @@ var b = JSON.parse(str);
 > dataset
 
 - Data数据在jquery mobile中有着重要作用
-
-data-name :  ele.dataset.name获取 
-
-data-name-first  :  ele.dataset.nameFirst   
+  - data-name : ` ele.dataset.name `获取 
+  - data-name-first  : ` ele.dataset.nameFirst   `
 
 ```html
 <ul>   <li data-index = 0></li>  </ul> 
@@ -281,11 +305,10 @@ data-name-first  :  ele.dataset.nameFirst
 
 - 很多浏览器都采用了并行加载JS，但还是会影响其他内容
 
-- - Html5的 defer 和 async 	
-
-  - - defer : 延迟加载，会按顺序执行，在onload执行前被触发
+  - Html5的 defer 和 async 	
+  - defer : 延迟加载，会按顺序执行，在onload执行前被触发
     - async : 异步加载，加载完就触发，有顺序问题（不确定哪个先加载完成）
-
+    
   - Labjs库 —— 异步加载库https://github.com/getify/LABjs
 
 ```html
@@ -300,7 +323,7 @@ data-name-first  :  ele.dataset.nameFirst
 
 - onhashchange 改变hash值来管理
 
-- -  当hash值改变的时候就会触发该事件
+  - 当hash值改变的时候就会触发该事件
 
 ```javascript
 oEle.onclick = function(){
@@ -320,7 +343,7 @@ window.onhashchange = function(){
 
 - 服务器下运行
 
-- - pushState :  三个参数 ：数据  标题(都没实现)  地址(可选  加地址后刷新不存在)
+  - pushState三个参数 ：数据  标题(都没实现)  地址 (可选  加地址后刷新不存在)
   - popstate事件 :  读取数据   event.state
   - 注意：网址是虚假的，需在服务器指定对应页面，不然刷新找不到页面
 
@@ -342,32 +365,32 @@ window.popstate = function(ev){
 
 - 拖拽元素事件 :  事件对象为被拖拽元素
 
-- - dragstart ,  拖拽前触发 （不是按下，要拖拽那一刻）
+  - dragstart ,  拖拽前触发 （不是按下，要拖拽那一刻）
   - drag ,拖拽前、拖拽结束之间，连续触发（鼠标不动只要没有抬起就仍然执行）
   - dragend  , 拖拽结束触发
 
 - 目标元素事件 :  事元素件对象为目标
 
-- - dragenter ,  进入目标元素触发，相当于mouseover
+  - dragenter ,  进入目标元素触发，相当于mouseover
   - dragover  ,进入目标、离开目标之间，连续触发
   - dragleave ,  离开目标元素触发，相当于mouseout
   - drop  ,  在目标元素上释放鼠标触发；要触发该事件则不需在dragover中阻止默认事件
 
-oEle.ondragstart = function(){} 
+`oEle.ondragstart = function(){} `
 
 
 
-事件执行顺序
+> 事件执行顺序
 
 - 事件的执行顺序 ：drop不触发的时候
 
-- - dragstart  >  drag >  dragenter >  dragover >  dragleave > dragend 
+  -  dragstart  >  drag >  dragenter >  dragover >  dragleave > dragend 
 
 
 
 - 事件的执行顺序 ：drop触发的时候(dragover的时候阻止默认事件)
 
-- - dragstart  >  drag >  dragenter >  dragover >  drop > dragend
+  - dragstart  >  drag >  dragenter >  dragover >  drop > dragend
 
 
 
@@ -388,18 +411,14 @@ oEle.ondragstart = function(ev){
 
 
 
-- dataTransfer对象
-
-- - setData() : 设置数据 key和value(必须是字符串)	
-  - getData() : 获取数据，根据key值，获取对应的value
-
-
-
 > dataTransfer对象
+
+- setData() : 设置数据 key和value(必须是字符串)	
+- getData() : 获取数据，根据key值，获取对应的value
 
 - effectAllowed 
 
-- - effectAllowed : 设置光标样式(none, copy, copyLink, copyMove, link, linkMove, move, all 和 uninitialized)	
+  - effectAllowed : 设置光标样式(none, copy, copyLink, copyMove, link, linkMove, move, all 和 uninitialized)	
 
 ```js
  ev.dataTransfer.effectAllowed = 'copy'; 
@@ -409,7 +428,7 @@ oEle.ondragstart = function(ev){
 
 - setDragImage 
 
-- - 三个参数：指定的元素，坐标X，坐标Y（鼠标在拖拽元素中的位置）
+  - 三个参数：指定的元素，坐标X，坐标Y（鼠标在拖拽元素中的位置）
 
 ```js
 oEle.ondragstart = function(ev){
@@ -422,7 +441,7 @@ oEle.ondragstart = function(ev){
 
 - files 
 
-- - 获取外部拖拽的文件，返回一个filesList列表
+  - 获取外部拖拽的文件，返回一个filesList列表
   - filesList下有个type属性，返回文件的类型
 
 ```js
@@ -459,8 +478,8 @@ oEle.ondragenter = function(ev){
             var oImg = document.createElement('img');
             
             oImg.src = this.result;  //预览图片
-           oLi.appendChild(oImg);
-           oUl.appendChild(oLi);
+            oLi.appendChild(oImg);
+            oUl.appendChild(oLi);
         } 
     }
 }
@@ -476,22 +495,22 @@ oEle.ondragenter = function(ev){
 
 - 接受消息的窗口对象.postMessage();
 
-- - 一参：发送的数据；二参：接收的域
+  - 一参：发送的数据；二参：接收的域
   - postMessage方法可以给另一个窗口发送消息
 
 
 
 - 交互方式
 
-- - iframe:父页面ele.contentWindow（获取到被包含页面的window对象）、子页面：window.top
+  - iframe:父页面ele.contentWindow（获取到被包含页面的window对象）、子页面：window.top
   - 窗口页：父页面window.open（返回的值是被打开窗口的window对象）、子页面window.opener（同域的情况下操作打开 当前页面的window）
 
 
 
 - 接收事件
 
-- - message  事件的事件对象下保存了发送过来的数据
-  - ev.oriigin:发送数据来源的域
+  - message  事件的事件对象下保存了发送过来的数据
+  - ev.origin:发送数据来源的域
   - ev.data:发送的数据
 
 —— 跨域访问的时候可以获取返回的对象，但是不能对页面元素的进行操作 
@@ -512,7 +531,7 @@ window.addEvenListener('message',function(ev){
 
 **Ajax的跨域**
 
-- 主流浏览器提供XMLHttpRequest对象支持更多特性，支持跨域请求 。但想实现跨域需后台配合，在后台添”herder(‘Access-Control-Allow-Origin: hhtp://域名’)“  //设置允许访问资源的域
+- 主流浏览器提供XMLHttpRequest对象支持更多特性，支持跨域请求 。但想实现跨域需后台配合，在后台添`herder(‘Access-Control-Allow-Origin: hhtp://域名’)  `//设置允许访问资源的域
 - IE 6不支持该对象，要使用IE浏览器的特定实现ActiveXObject
 
 
@@ -521,11 +540,11 @@ window.addEvenListener('message',function(ev){
 
 - XMLHttpRequest改进版：增加了特性，推荐onload代替onreadystatechange
 
-- - 请求页面与数据页面必须属性不同的域
+  - 请求页面与数据页面必须属性不同的域
   - 服务器要设置响应头信息
   - Origin值展现
   - IE在跨域请求下使用的对象：XDomainRequest（）
-  -  新的事件：onload（代替onreadystatechange）
+  - 新的事件：onload（代替onreadystatechange）
 
 ```js
 var getXmlHttpRequest = function () {
@@ -562,17 +581,15 @@ xhr.onreadystatechange = function () {
 
 
 
-
-
 **Ajax无刷新上传**
 
-- - 进度事件 var OUpLoad = xhr.upload;
+- 进度事件 var OUpLoad = xhr.upload;
 
-  - - upload.onprogress:上传进度  //要将onprogress放在上传事件之前
+  - upload.onprogress:上传进度  //要将onprogress放在上传事件之前
 
   - FromData对象
 
-  - ev.total（已发送的总量）、ev.,loaded（待发送的总量）  //得出上传进度
+  - ev.total（已发送的总量）、ev.loaded（待发送的总量）  //得出上传进度
 
   - onprogress:下载
 
@@ -622,9 +639,7 @@ xhr.onreadystatechange = function () {
 
 
 
-
-
-**地理信息与本地存储**
+#### 地理信息与本地存储
 
 **地理位置**
 
@@ -637,18 +652,18 @@ xhr.onreadystatechange = function () {
 
 
 
-地理位置对象
+**地理位置对象**
 
 - navigator.geolocation （非标准IE不支持）
 
-- - 单次定位请求  ：getCurrentPosition(请求成功，请求失败，数据收集方式)
+  - 单次定位请求  ：getCurrentPosition(请求成功，请求失败，数据收集方式)
   - 请求成功函数
 
 ```js
 var timer = navigator.getolocation.getCurrentPosition(function(position){
     console.log(position.coords.longitude);   //打印出经度
 },function(err){
-    console.log(ree.code)  //请求失败的编号
+    console.log(err.code)  //请求失败的编号
 },{
     enableHighAcuracy:true,  //更精确的查找
     timeout:5000   //单位四毫秒
@@ -688,7 +703,7 @@ maximumAge :  位置可以缓存的最大时间，默认0
 
 - 多次定位请求  :  watchPosition(像setInterval)
 
-- - 移动设备比较有用，因为位置改变才会触发
+  - 移动设备比较有用，因为位置改变才会触发
   - 配置参数：frequency 更新的频率 frequency:1000  //每秒
 
 
@@ -713,9 +728,8 @@ maximumAge :  位置可以缓存的最大时间，默认0
 
 - Cookie的特点
 
-- - 存储限制
-
-  - - 域名100个cookie,每组值大小4KB
+  - 存储限制
+  - 域名100个cookie,每组值大小4KB
 
   - 客户端、服务器端，都会请求服务器（头信息）
 
@@ -727,12 +741,12 @@ maximumAge :  位置可以缓存的最大时间，默认0
 
 - sessionStorage
 
-- - session临时回话，从页面打开到页面关闭的时间段
+  - session临时会话，从页面打开到页面关闭的时间段
   - 窗口的临时存储，页面关闭，本地存储消失
 
 - localStorage
 
-- - 永久存储（可以手动删除数据）
+  - 永久存储（可以手动删除数据）
 
 
 
@@ -748,26 +762,26 @@ maximumAge :  位置可以缓存的最大时间，默认0
 
 - setItem():
 
-- - 设置数据，key\value类型，类型都是字符串
+  - 设置数据，key\value类型，类型都是字符串
   - 可以用获取属性的形式操作
 
 - getItem():
 
-- - 获取数据，通过key来获取到相应的value
+  - 获取数据，通过key来获取到相应的value
 
 - removeItem():
 
-- - 删除数据，通过key来删除相应的value
+  - 删除数据，通过key来删除相应的value
 
 - clear():
 
-- - 删除全部存储的值
+  - 删除全部存储的值
 
 ```js
 window.sessionStorage.setItem('name','yomi'); 
-window,sessionStorage.getItem('name'); 
-window,sessionStorage.removeItem('name');
-window,sessionStorage.clear(); 
+window.sessionStorage.getItem('name'); 
+window.sessionStorage.removeItem('name');
+window.sessionStorage.clear(); 
 ```
 
 
@@ -776,7 +790,7 @@ window,sessionStorage.clear();
 
 - 当数据有修改或删除的情况下，就会触发storage事件
 
-- - 在对数据进行改变的窗口对象上是不会触发的
+- 在对数据进行改变的窗口对象上是不会触发的
   - Key : 修改或删除的key值，如果调用clear(),key为null
   - newValue  :  **新设置的值**，如果调用removeStorage(),key为null
   - oldValue :  调用改变前的value值
@@ -821,11 +835,11 @@ window.addEventListener('storage',function(ev){
 
 - 音频编解码器
 
-- - AAC、MPEG-3、Ogg Vorbis
+  - AAC、MPEG-3、Ogg Vorbis
 
 - 视频编解码器
 
-- - H.264、VP8、Ogg Theora
+  - H.264、VP8、Ogg Theora
 
 
 
@@ -846,8 +860,6 @@ setInterval(function(){     console.log(ele.currentTime)  //可以通过该属�
 - ended   :   媒体是否播放完毕(只读)
 - error   :  媒体发生错误的时候，返回错误代码 (只读)
 - currentSrc  :   以字符串的形式返回媒体地址(只读)
-
-
 
 - play()  :  媒体播放    //ele.paly()调用播放
 - pause()  :  媒体暂停
@@ -870,8 +882,6 @@ ele.addEventListener('ended',function(){     //视频播完之后触发 },false)
 - poster  :   视频播放前的预览图片  ele.poster = 'poster.png'
 - width、height  :   设置视频的尺寸
 - videoWidth、 videoHeight  :   视频的实际尺寸(只读)
-
-
 
 ```js
 //带声音的导航
