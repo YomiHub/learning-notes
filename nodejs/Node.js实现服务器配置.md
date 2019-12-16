@@ -71,6 +71,9 @@ http.createServer((req, res) => {
 ```
 </br>
 -----
+
+
+
 #### 参数传递与获取
 - [get参数获取](https://nodejs.org/dist/latest-v12.x/docs/api/url.html#url_url_parse_urlstring_parsequerystring_slashesdenotehost)
     + url.parse(urlString) 将url字符串转为对象，第二个参数可传入true表示将对参数url进行querystring.parse解析
@@ -118,6 +121,9 @@ http.createServer((req, res) => {
 //测试：http://127.0.0.1:3000/index.html?username=hym&pass=12
 ```
 </br>
+
+
+
 - [post参数获取](https://nodejs.org/dist/latest-v12.x/docs/api/querystring.html#querystring_query_string)
   + querystring.parse(urlstr)  将字符串转为对象，当多个参数一样时，将参数的值放入数组中
   + querystring.stringify(obj) 将对象中的参数拼接成字符串（自动拆分数组）
@@ -137,7 +143,7 @@ console.log(str);
 /* foo=bar&abc=xyz&abc=123 */
 ```
 
-- post请求处
+- post请求处理
 
 ```js
 const http = require('http');

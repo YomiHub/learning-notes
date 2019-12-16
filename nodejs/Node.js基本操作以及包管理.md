@@ -4,7 +4,7 @@
 > </br>
 > </br>Node.js平台使用的开发语言是JavaScript，平台提供了操作系统低层的API，方便做服务器端编程，具体包括文件操作、进程操作、通信操作等系统模块
 
-#### win+r窗口命令
+#### win+r 窗口命令
 - notepad 打开记事本
 - mspaint 打开画图
 - calc 打开计算机
@@ -32,7 +32,7 @@
 同时将我安装之前的版本npm npm.cmd 这两个文件复制过去
 
 #### 关于node
-- REPL:read-eval-print-loop 读取代码-执行-打印结果-循环
+- REPL: read-eval-print-loop 读取代码-执行-打印结果-循环
 - 执行命令node进入repl，命令.exit退出repl
 - [Globals](https://nodejs.org/dist/latest-v12.x/docs/api/globals.html)
     - __filename:包含文件名的全路径
@@ -274,13 +274,14 @@ fs.rmdir(path.join(__dirname, 'test'), (err) => {
 
 -----
 ### 包
-> 多个模块可以形成包，不过要满足特定的规则才能形成规范的包（一个特定的模块完成一个特定子功能）
+- 多个模块可以形成包，不过要满足特定的规则才能形成规范的包（一个特定的模块完成一个特定子功能）
 
 #### NPM（ode.js package management）
 > 全球最大的模块生态系统，里面所有的模块都是开源免费的；也是Node.js的包管理工具。
 - [npm官网](https://www.npmjs.com/):托管了所有开源的npm包
 
 </br>
+
 #### npm包安装的方式（可以指定安装包的版本）
 
 - 初始化项目：在项目目录中执行`npm init -y`(参数-y表示使用默认设置)，生成package.json(执行包的命令：`node .`就是执行main指向的文件；另外`npm run test`可以执行test中的指令`node index.js`)
@@ -295,12 +296,14 @@ npm install art-template  //前后端通用的模板引擎https://github.com/aui
 ```
 
 </br>
+
 #### npm常用的命令参数
 - 生产环境添加依赖--save：`npm install art-template --save` 会在package.json中添加该包的依赖dependencies
 - 开发环境添加的依赖 --save-dev：`npm install art-template --save-dev`会在package.json中添加开发环境下的包依赖devDependencies，比如一些babel编译功能的插件、webpack打包插件
 - 安装生产环境的依赖node-moudules：在项目目录执行`npm install --production`；都安装的时候用命令`npm install`
 
 </br>
+
 #### 解决npm安装包被墙的问题
 - --registry
   + `npm config set registry https://registry.npm.taobao.org `可以改变默认下载地址，依旧使用npm，达到不安装cnpm就使用淘宝镜像的目的；验证用命令`npm config get registry` 或 `npm info underscore`
@@ -322,6 +325,7 @@ npm install art-template  //前后端通用的模板引擎https://github.com/aui
   + nrm ls即nrm list，查看所有可用的镜像
 
 </br>
+
 #### yarn 工具基本使用  `npm install -g yarn`
 > 性能上比npm更加优越，提示更加友好
 
