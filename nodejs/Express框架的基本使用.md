@@ -262,3 +262,59 @@ app.listen(3000, () => {
 })
 
 ```
+
+
+
+#### 模板引擎整合
+-  使用art-template@4.0 新特性，[express-art-template]("https://github.com/aui/express-art-template") 以及  [koa-art-template]("https://github.com/aui/koa-art-template")
+-  安装express-art-template使express兼容art-template模板引擎
+```
+npm install --save art-template
+npm install --save express-art-template
+```
+- 创建app.js编写以下代码，在同级目录下创建文件夹views并创建模板文件list.art
+
+```js
+
+const express = require('express');
+const path = require('path');
+const template = require('art-template');
+const app = express();
+
+//设置模板路径
+app.set('views', path.join(__dirname, './views'));
+
+//设置模板后缀为art，与app.engine相对应
+app.set('view engine', 'art');
+app.engine('art', require('express-art-template'));   //express兼容art-template引擎
+app.get('/list', (req, res) => {
+  let data = {
+    title: '水果',
+    list: [
+      '苹果',
+      '猕猴桃',
+      '圣女果'
+    ]
+  };
+  res.render('list', data);  //指定文件名称，渲染数据
+})
+
+//测试：访问http://localhost:3000/list
+app.listen(3000, () => {
+  console.log("running");
+})
+
+```
+
+```html
+<body>
+  <div>
+    <ul>
+      {{each list}}
+      <li>{{$value}}</li>
+      {{/each}}
+    </ul>
+
+  </div>
+</body>
+```
