@@ -297,7 +297,7 @@ var vm = new Vue({
 
 ```html
 <!-- 可以调用多个过滤器 -->
- <td>{{item.time | dateFormat('yyyy-mm-dd') | nextcahnge}}</td>
+ <td>{{item.time | dateFormat('yyyy-mm-dd') | nextChange}}</td>
 
 <script>
   Vue.filter('dateFormat', (date, pattern = '') => {
