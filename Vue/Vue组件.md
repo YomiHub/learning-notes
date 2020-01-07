@@ -317,6 +317,7 @@ var vm = new Vue({
       </li>
     </ul>
   </div>
+
   <template id="tplcomment">
     <div>
       <div class="form-group">
