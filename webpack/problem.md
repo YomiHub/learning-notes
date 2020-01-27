@@ -1,6 +1,6 @@
 ### problem
 
-#### Error: Cannot find module '@babel/core’问题
+#### 安装babel包，Error: Cannot find module '@babel/core’  问题
 
 > 问题产生的原因
 
@@ -39,5 +39,31 @@ babel-loader和babel-core版本不对应所产生的，
     ]
 }
 ```
-
 原文链接：https://www.jianshu.com/p/74cb6203c39f
+
+
+
+
+#### webpack打包vue项目，Error: listen EADDRINUSE: address already in use 127.0.0.1:3000
+- 打开cmd(win+R快捷键)
+
+- 运行netstat -ano，找到报错信息提示的端口号那一行，记住最后那个数字
+
+- 接下来运行tskill “最后那个数字”，所以这里我运行的是tskill 20212
+
+  
+
+
+#### Vue-loader在15.*之后的版本使用 webpack vue-loader was used without the corresponding plugin. Make sure to include VueLoaderPlugin  报错参考官方文档[链接]("https://vue-loader.vuejs.org/migrating.html#a-plugin-is-now-required")
+```js
+//在webpack.config.js中加入
+const VueLoaderPlugin = require('vue-loader/lib/plugin')
+
+module.exports = {
+  // ...
+  plugins: [
+    new VueLoaderPlugin()
+  ]
+}
+​```
+```
