@@ -125,7 +125,7 @@ module.exports = {
 
 - 通过babel可以帮我们将高级语法转为低级语法，在webpack安装babel相关的loader（两套包）
   + 第一套包([runtime]("https://segmentfault.com/a/1190000009065987"))： `npm i babel-core babel-loader@7 babel-plugin-transform-runtime -D`
-  + 第二套包（[babel-preset-env]("https://segmentfault.com/p/1210000008466178")`）： `npm i babel-preset-env babel-preset-stage-0 -D`
+  + 第二套包（[babel-preset-env]("https://segmentfault.com/p/1210000008466178")）： `npm i babel-preset-env babel-preset-stage-0 -D`
 - 打开webpack的配置文件，在modules的rules数组中新增匹配规则`{test:/\.js$/,use:'babel-loader',exclude:/node_modules/}`
   + 如果不排除node_modules，则babel会把node_modules中所有第三方js文件打包编译，非常消耗CPU，而且打包速度很慢
   + 就算将node_modules中的js都打包完毕，项目也无法正常运行
@@ -138,4 +138,4 @@ module.exports = {
     "plugins":["transform-runtime"]
 }
 ```
-注：以上为使用7.x的babel-loader，如果出现Error: Cannot find module '@babel/core’或者想要使用8.x版本则可参考问题篇[problem.md]("")
+注：以上为使用7.x的babel-loader，如果出现Error: Cannot find module '@babel/core’或者想要使用8.x版本则可参考问题篇[problem.md]("https://github.com/YomiHub/learning-notes/blob/master/webpack/problem.md ")
