@@ -393,3 +393,54 @@ var vm = new Vue({
   </script>
 </body>
 ```
+
+</br>
+
+#### 基础组件的自动化全局注册
+> 当你的许多组件只是包裹了一个输入框或按钮之类的元素，是相对通用的。我们有时候会把它们称为基础组件，它们会在各个组件中被频繁的用到。所以会导致很多组件里都会有一个包含基础组件的长列表。可以使用 require.context 只全局注册这些非常通用的基础组件。
+
+- 在应用入口文件 (比如 src/main.js) 中全局导入基础组件
+- 全局注册的行为必须在根 Vue 实例 (通过 new Vue) 创建之前发生
+- 解析参考官方文档[链接](https://cn.vuejs.org/v2/guide/components-registration.html#%E5%9F%BA%E7%A1%80%E7%BB%84%E4%BB%B6%E7%9A%84%E8%87%AA%E5%8A%A8%E5%8C%96%E5%85%A8%E5%B1%80%E6%B3%A8%E5%86%8C)
+
+
+```js
+//源码出处：https://github.com/chrisvfritz/vue-enterprise-boilerplate/blob/master/src/components/_globals.js
+
+// Globally register all base components for convenience, because they
+// will be used very frequently. Components are registered using the
+// PascalCased version of their file name.
+
+import Vue from 'vue'
+
+// https://webpack.js.org/guides/dependency-management/#require-context
+const requireComponent = require.context(
+  // Look for files in the current directory
+  '.',
+  // Do not look in subdirectories
+  false,
+  // Only include "_base-" prefixed .vue files
+  /_base-[\w-]+\.vue$/
+)
+
+// For each matching file name...
+requireComponent.keys().forEach((fileName) => {
+  // Get the component config
+  const componentConfig = requireComponent(fileName)
+  // Get the PascalCase version of the component name
+  const componentName = fileName
+    // Remove the "./_" from the beginning
+    .replace(/^\.\/_/, '')
+    // Remove the file extension from the end
+    .replace(/\.\w+$/, '')
+    // Split up kebabs
+    .split('-')
+    // Upper case
+    .map((kebab) => kebab.charAt(0).toUpperCase() + kebab.slice(1))
+    // Concatenated
+    .join('')
+
+  // Globally register the component
+  Vue.component(componentName, componentConfig.default || componentConfig)
+})
+```
