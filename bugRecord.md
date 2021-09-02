@@ -29,6 +29,9 @@
  + [聊天室](https://www.cnblogs.com/xiaoyan2017/p/10336556.html)
  + [微信小程序转uniapp](https://ask.dcloud.net.cn/article/35786)
 
+- Jquery 
+ + [jquery插件库](https://www.jq22.com/)
+
 - uniapp
  + [父子/兄弟 组件之间通信](https://www.cnblogs.com/cdj61/p/12895020.html)
 

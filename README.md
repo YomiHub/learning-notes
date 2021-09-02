@@ -105,7 +105,8 @@
 > #### 关于项目
 - 微信小程序
   + [商城小程序](https://git.weixin.qq.com/gqzydh/wx-smallProgram)
-
+  + [在线聊天](https://github.com/yeshenzhy/socket-vue)：在vue中使用socket.io-clientt
+  
 </br>
 
 #### 如果你想找开源项目
